@@ -7,7 +7,7 @@ import CourseRoutes from "./courses/routes.js";
 import ModuleRoutes from './modules/routes.js';
 import AssignmentRoutes from "./assignments/routes.js";
 
-
+// sjsjsj neww
 const app = express();
 app.use(cors());
 app.use(express.json());
