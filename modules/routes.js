@@ -16,12 +16,12 @@ function ModuleRoutes(app) {
         Database.modules.push(newModule);
         res.send(newModule);
     });
-    app.delete("/api/modules/:mid", (req, res) => {
+    app.delete("/api/courses/:cid/modules", (req, res) => {
         const { mid } = req.params;
         Database.modules = Database.modules.filter((m) => m._id !== mid);
         res.sendStatus(200);
     });
-    app.put("/api/modules/:mid", (req, res) => {
+    app.put("/api/courses/:cid/modules", (req, res) => {
         const { mid } = req.params;
         const moduleIndex = Database.modules.findIndex(
             (m) => m._id === mid);

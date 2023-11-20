@@ -1,7 +1,7 @@
 import Database from "../Database/index.js";
 
 function AssignmentRoutes(app) {
-    app.get("/api/assignments/:cid", (req, res) => {
+    app.get("/api/courses/:cid/assignments", (req, res) => {
         const { cid } = req.params;
         const assignments = Database.assignments.filter((c) => c.course === cid);
         if (assignments) {
@@ -11,7 +11,7 @@ function AssignmentRoutes(app) {
         }
     });
 
-    app.delete("/api/assignments/:cid", (req, res) => {
+    app.delete("/api/courses/:cid/assignments", (req, res) => {
         try {
             const { cid } = req.params;
             Database.assignments = Database.assignments.filter((a) => a._id !== cid);
@@ -21,14 +21,14 @@ function AssignmentRoutes(app) {
             res.status(404).send("Assignment delete failed");
         }
     })
-    app.put("/api/assignments/:cid", (req, res) => {
+    app.put("/api/courses/:cid/assignments", (req, res) => {
         const { cid } = req.params;
         const newAssignment = { ...req.body };
         const index = Database.assignments.findIndex((a) => a._id === cid);
         Database.assignments[index] = newAssignment;
         res.sendStatus(200);
     });
-    app.post("/api/assignments/", (req, res) => {
+    app.post("/api/courses/:cid/assignments", (req, res) => {
         const newAssignment = { ...req.body };
         Database.assignments.push(newAssignment);
         res.sendStatus(200);
