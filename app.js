@@ -6,19 +6,45 @@ import cors from "cors";
 import CourseRoutes from "./courses/routes.js";
 import ModuleRoutes from './modules/routes.js';
 import AssignmentRoutes from "./assignments/routes.js";
+import mongoose from "mongoose";
+mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
+import UserRoutes from "./users/routes.js";
+import session from "express-session";
+import "dotenv/config";
 
-// sjsjsj neww
-//new again
-//newwwww
-//new
 const app = express();
-app.use(cors());
+app.use(
+    //newwwww
+    cors({
+        credentials: true,
+        origin: "https://musical-snickerdoodle-ced178.netlify.app/",
+        // origin: process.env.FRONTED_URL
+        
+    })
+);
+const sessionOptions = {
+    secret: "any string",
+    resave: false,
+    saveUninitialized: false,
+};
+if (process.env.NODE_ENV !== "development") {
+    sessionOptions.proxy = true;
+    sessionOptions.cookie = {
+        sameSite: "none",
+        secure: true,
+    };
+}
+app.use(session(sessionOptions));
+// app.use(
+//     session(sessionOptions)
+// );
 app.use(express.json());
+UserRoutes(app);
 CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
 Hello(app)
 Lab5(app);
 
-
+//const port = process.env.PORT || 4000;
 app.listen(process.env.PORT || 4000);
